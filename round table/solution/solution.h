@@ -1,12 +1,21 @@
 #pragma once
 #include <vector>
 
-std::vector<int> ReadFile();
-int ChoseSolution(const std::vector<int>& company);
+enum SolutionWay
+{
+	NO_DECISION,
+	MORE_GIRLS,
+	MORE_BOYS
+};
 
-std::string GetSolutionMoreGirl(const std::vector<int>& company);
-std::string GetSolutionMoreBoys0(const std::vector<int>& company);
-std::string GetSolutionMoreBoys1(const std::vector<int>& company);
+
+std::vector<int> ReadFile();
+SolutionWay ChooseSolution(const std::vector<int>& company);
+
+std::string GetSolutionWhenManyGirls(const std::vector<int>& company);
+std::string GetSolutionWhenManyBoys(const std::vector<int>& company);
 std::string GetSolution(const std::vector<int>& company, int number);
 
 void SetSolution(const std::vector<int>& company, int number);
+
+void Output(const std::string & seating);

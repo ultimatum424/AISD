@@ -5,11 +5,11 @@
 #include <iostream>	
 #include <fstream>
 #include <vector>
+#include "solution.h"
 
 
 using namespace std;
 
-enum numberSolution{noDecision, moreGirls, moreBoys0, moreBoys1};
 
 
 vector<int> ReadFile() {
@@ -26,29 +26,22 @@ vector<int> ReadFile() {
 	return company;
 }
 
-int ChoseSolution(const vector<int>& company) {
+SolutionWay ChooseSolution(const vector<int>& company) {
 	if ((company[0] == 0) && (company[1] == 0))
 	{
-		return noDecision;
+		return NO_DECISION;
 	}
 	else if ((company[0] * 2) <= (company[1]))
 	{
-		return moreGirls;
+		return MORE_GIRLS;
 	}
-	else if ((company[0] * 2) > (company[1]))
+	else
 	{
-		if (company[1] % 2 == 0)
-		{
-			return moreBoys0;
-		}
-		else
-		{
-			return moreBoys1;
-		}
+		return MORE_BOYS;
 	}
 }
 
-string GetSolutionMoreGirl(const vector<int>& company)
+string GetSolutionWhenManyGirls(const vector<int>& company)
 {
 	string seating;
 	for (size_t i = 0; i < company[0]; i++)
@@ -59,37 +52,33 @@ string GetSolutionMoreGirl(const vector<int>& company)
 	return seating;
 }
 
-string GetSolutionMoreBoys0(const vector<int>& company)
+string GetSolutionWhenManyBoys(const vector<int>& company)
 {
 	string seating;
 	for (size_t i = 0; i < (company[1] / 2); i++)
 		seating = seating + "BGG";
 	for (size_t i = 0; i < (company[0] - (company[1] / 2)); i++)
 		seating = seating + "B";
-	return seating;
-}
-
-string GetSolutionMoreBoys1(const vector<int>& company)
-{
-	string seating;
-	for (size_t i = 0; i < (company[1] / 2); i++)
-		seating = seating + "BGG";
-	for (size_t i = 0; i < (company[0] - (company[1] / 2)); i++)
-		seating = seating + "B";
-	seating = seating + "G";
+	if (company[1] % 2)
+		seating = seating + "G";
 	return seating;
 }
 
 string GetSolution(const vector<int>& company, int number)
 {
-	if (number == noDecision)
+	if (number == MORE_GIRLS)
+		return GetSolutionWhenManyGirls(company);
+	else if (number == MORE_BOYS)
+		return GetSolutionWhenManyBoys(company);
+	else
 		return "";
-	else if (number == moreGirls)
-		return GetSolutionMoreGirl(company);
-	else if (number == moreBoys0)
-		return GetSolutionMoreBoys0(company);
-	else if (number == moreBoys1)
-		return GetSolutionMoreBoys1(company);
+}
+
+void Output(const string & seating)
+{
+	ofstream outFile;
+	outFile.open("output.txt");
+	outFile << seating;
 }
 
 

@@ -4,89 +4,79 @@
 #include "stdafx.h"
 #include "../solution/solution.h"
 #include <vector>
+#include <time.h>
 
-enum numberSolution { noDecision, moreGirls, moreBoys0, moreBoys1 };
 
 BOOST_AUTO_TEST_SUITE(RoundTableTests)
+
+	BOOST_AUTO_TEST_CASE(CheckForBig)
+	{
+		float fTimeStart = clock() / (float)CLOCKS_PER_SEC;
+		std::vector<int> company = { 1000, 1000 };
+		int numberSolution = ChooseSolution(company);
+		std::string seating = GetSolution(company, numberSolution);
+		Output(seating);
+		float fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK((fTimeStop - fTimeStart) < 2);
+	}
 
 	BOOST_AUTO_TEST_CASE(CheckForNull) 
 	{
 		std::vector<int> company = { 0, 0 };
-		BOOST_CHECK_EQUAL(noDecision, ChoseSolution(company));
+		float fTimeStart = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK_EQUAL(NO_DECISION, ChooseSolution(company));
+		float fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK((fTimeStop - fTimeStart) < 2);
 	}
 
 
-	BOOST_AUTO_TEST_CASE(CheckForMoreBoys0)
+	BOOST_AUTO_TEST_CASE(CheckForMoreBoys)
 	{
 		std::vector<int> company = { 41, 20 };
-		BOOST_CHECK_EQUAL(moreBoys0, ChoseSolution(company));
+		float fTimeStart = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK_EQUAL(MORE_BOYS, ChooseSolution(company));
+		float fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK((fTimeStop - fTimeStart) < 2);
 	}
 
-	BOOST_AUTO_TEST_CASE(CheckForMoreBoys1)
-	{
-		std::vector<int> company = { 41, 23 };
-		BOOST_CHECK_EQUAL(moreBoys1, ChoseSolution(company));
-	}
 
 	BOOST_AUTO_TEST_CASE(CheckForMoreGirls)
 	{
+		float fTimeStart = clock() / (float)CLOCKS_PER_SEC;
 		std::vector<int> company = { 51, 126 };
-		BOOST_CHECK_EQUAL(moreGirls, ChoseSolution(company));
+		BOOST_CHECK_EQUAL(MORE_GIRLS, ChooseSolution(company));
+		float fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK((fTimeStop - fTimeStart) < 2);
 	}
 
 	BOOST_AUTO_TEST_CASE(CheckSolutionMoreGirl)
 	{
 		std::vector<int> company = { 2, 7 };
 		std::string seating = "BGGBGGGGG";
-		BOOST_CHECK(seating == GetSolutionMoreGirl(company));
+		float fTimeStart = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK(seating == GetSolutionWhenManyGirls(company));
+		float fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK((fTimeStop - fTimeStart) < 2);
 	}
 	BOOST_AUTO_TEST_CASE(CheckSolutionMoreBoys0)
 	{
 		std::vector<int> company = { 10, 4 };
 		std::string seating = "BGGBGGBBBBBBBB";
-		BOOST_CHECK(seating == GetSolutionMoreBoys0(company));
+		float fTimeStart = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK(seating == GetSolutionWhenManyBoys(company));
+		float fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK((fTimeStop - fTimeStart) < 2);
 	}
 	
 	BOOST_AUTO_TEST_CASE(CheckSolutionMoreBoys1)
 	{
 		std::vector<int> company = { 10, 5 };
 		std::string seating = "BGGBGGBBBBBBBBG";
-		BOOST_CHECK(seating == GetSolutionMoreBoys1(company));
+		float fTimeStart = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK(seating == GetSolutionWhenManyBoys(company));
+		float fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+		BOOST_CHECK((fTimeStop - fTimeStart) < 2);
 	}
+
 	
-	/*
-	BOOST_AUTO_TEST_CASE(CheckBadSolutionBoys)
-	{
-		std::vector<int> company = { 10, 0 };
-		std::string bestSeating = "BBBBBBBBBB";
-		BOOST_CHECK(bestSeating == GoBadSolution(company, onlyBoys));
-	}
-
-	BOOST_AUTO_TEST_CASE(CheckBadSolutionGirls)
-	{
-		std::vector<int> company = { 0, 10 };
-		std::string bestSeating = "GGGGGGGGGG";
-		BOOST_CHECK(bestSeating == GoBadSolution(company, onlyGirls));
-	}
-	BOOST_AUTO_TEST_CASE(CheckBadSolutionNull)
-	{
-		std::vector<int> company = { 0, 0 };
-		std::string bestSeating = "";
-		BOOST_CHECK(bestSeating == GoBadSolution(company, noDecision));
-	}
-
-	BOOST_AUTO_TEST_CASE(CheckBadSolutionmoreGirls)
-	{
-		std::vector<int> company = { 7, 5 };
-		std::string bestSeating = "BGG";
-		BOOST_CHECK(bestSeating == GoGoodSolution(company, noDecision));
-	}
-
-	BOOST_AUTO_TEST_CASE(CheckBadSolutionmoreBoys)
-	{
-		std::vector<int> company = { 4, 1 };
-		std::string bestSeating = "";
-		BOOST_CHECK(bestSeating == GoGoodSolution(company, noDecision));
-	}
-	*/
 BOOST_AUTO_TEST_SUITE_END()
