@@ -26,33 +26,33 @@ stuctWeel ReadFiles(const std::string& nameFile)
 	return Weel;
 }
 
-int calculationsWeel(stuctWeel& Weel)
+int calculationsWeel(stuctWeel& Wheel)
 {
-	int maxAmountSectors = Weel.maxForce / Weel.sector;
-	int minAmountSectors = Weel.minForce / Weel.sector;
+	int maxAmountSectors = Wheel.maxForce / Wheel.sector;
+	int minAmountSectors = Wheel.minForce / Wheel.sector;
 
-	if (Weel.maxForce % Weel.sector == 0)
+	if (Wheel.maxForce % Wheel.sector == 0)
 		maxAmountSectors--;
-	if (Weel.minForce % Weel.sector == 0)
+	if (Wheel.minForce % Wheel.sector == 0)
 		minAmountSectors--;
 
-	int start = (minAmountSectors % Weel.quantyPrize);
+	int start = (minAmountSectors % Wheel.quantyPrize);
 	int scatter = (maxAmountSectors) - (minAmountSectors);
 
-	if (scatter >= (Weel.quantyPrize - 1))
+	if (scatter >= (Wheel.quantyPrize - 1))
 	{
-		auto result = max_element(Weel.prize.begin(), Weel.prize.end());
+		auto result = max_element(Wheel.prize.begin(), Wheel.prize.end());
 		return *result;
 	}
 	else
 	{ 
 		vector<int> reversPrize;
-		reversPrize.push_back(Weel.prize[0]);
-		for (size_t i = Weel.prize.size() - 1; i > 1; i--)
+		reversPrize.push_back(Wheel.prize[0]);
+		for (size_t i = Wheel.prize.size() - 1; i > 1; i--)
 		{
-			reversPrize.push_back(Weel.prize[i]);
+			reversPrize.push_back(Wheel.prize[i]);
 		}
-		auto maxPrize1 = max_element((Weel.prize.begin() + start), (Weel.prize.begin() + (start + scatter)));
+		auto maxPrize1 = max_element((Wheel.prize.begin() + start), (Wheel.prize.begin() + (start + scatter)));
 		auto maxPrize2 = max_element((reversPrize.begin() + start), (reversPrize.begin() + (start + scatter)));
 		return  max(*maxPrize1, *maxPrize2);
 	}
