@@ -52,7 +52,7 @@ bool RunTest(int numberTest)
 
 
 
-BOOST_AUTO_TEST_SUITE(count_of_cities_is_less_than_desired)
+BOOST_AUTO_TEST_SUITE(Tests)
 
 	BOOST_AUTO_TEST_CASE(test1)
 	{
